@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "pm2 start npm -- start"
+    "start": "pm2 start next -- build"
   },
   "dependencies": {
     "next": "11.0.1",
