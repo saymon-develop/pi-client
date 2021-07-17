@@ -20,19 +20,21 @@ export default function Home() {
   };
 
   const onMove = e => {
-    console.log(`onMove`, e);
-    if (e.type === `move`) {
-      socket.emit(e.y > 0 ? `forward` : `backward`, calcMotorPover(e.y));
+    if (e.type === `move` && (e.direction === `FORWARD` || e.direction === `BACKWARD`)) {
+      console.log(e.direction.toLowerCase(), calcMotorPover(e.y));
+      socket.emit(e.direction.toLowerCase(), calcMotorPover(e.y));
     } else {
+      console.log(`Stop mooving`);
       socket.emit(`stop`, 0);
     }
   };
 
   const onTurn = e => {
-    console.log(`onTurn`, e);
-    if (e.type === `move`) {
-      socket.emit(e.x > 0 ? `right` : `left`, Math.abs(e.x));
+    if (e.type === `move` && (e.direction === `LEFT` || e.direction === `RIGHT`)) {
+      console.log(e.direction.toLowerCase(), calcMotorPover(e.x));
+      socket.emit(e.direction.toLowerCase(), Math.abs(e.x));
     } else {
+      console.log(`Stop turning`);
       socket.emit(`turn-stop`, 0);
     }
   };
