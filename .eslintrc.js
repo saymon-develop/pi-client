@@ -18,6 +18,7 @@ module.exports = {
     node: true // Enables Node.js global variables and Node.js scoping.
   },
   extends: [
+    `next`,
     `eslint:recommended`,
     `plugin:react/recommended`,
     `plugin:jsx-a11y/recommended`,
@@ -47,4 +48,4 @@ module.exports = {
     'react/display-name': 0,
     'react/prop-types': 0
   }
-}
+};

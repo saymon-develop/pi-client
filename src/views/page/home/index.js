@@ -16,7 +16,7 @@ export default function Home() {
   socket.on(`bootstrap`, arg => console.log(arg));
 
   const calcMotorPover = joystickPover => {
-    return Math.abs(joystickPover) * 5 + 5;
+    return joystickPover === 0 ? 0 : Math.abs(joystickPover) * 5 + 5;
   };
 
   const onMove = e => {
@@ -31,7 +31,7 @@ export default function Home() {
   const onTurn = e => {
     console.log(`onTurn`, e);
     if (e.type === `move`) {
-      socket.emit(e.x > 0 ? `right` : `left`, calcMotorPover(e.x));
+      socket.emit(e.x > 0 ? `right` : `left`, Math.abs(e.x));
     } else {
       socket.emit(`turn-stop`, 0);
     }
