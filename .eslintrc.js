@@ -21,11 +21,9 @@ module.exports = {
     `next`,
     `eslint:recommended`,
     `plugin:react/recommended`,
-    `plugin:jsx-a11y/recommended`,
-    `plugin:prettier/recommended` // Make this the last element so prettier config overrides other formatting rules
+    `plugin:jsx-a11y/recommended`
   ],
   rules: {
-    'prettier/prettier': [`error`, {}], // Use our .prettierrc file as source
     'react/react-in-jsx-scope': `off`,
     'jsx-a11y/anchor-is-valid': [
       `error`,
