@@ -1,0 +1,30 @@
+.main {
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: 'header''content''footer';
+    grid-template-rows: max-content 1fr max-content;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+}
+.header {
+    grid-area: header;
+    padding: 5px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .5px;
+    color: lightblue;
+}
+.content {
+    grid-area: content;
+    padding: 20px;
+}
+.footer {
+    grid-area: footer;
+    padding: 5px 20px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: .5px;
+    color: lightblue;
+}
