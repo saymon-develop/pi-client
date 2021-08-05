@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { Joystick } from 'react-joystick-component';
 
@@ -20,30 +21,53 @@ export default function Home() {
   };
 
   const onMove = e => {
-    if (e.type === `move` && (e.direction === `FORWARD` || e.direction === `BACKWARD`)) {
-      console.log(e.direction.toLowerCase(), calcMotorPover(e.y));
-      socket.emit(e.direction.toLowerCase(), calcMotorPover(e.y));
+    if (e.type === `move`) {
+      console.log(e.direction.toLowerCase());
+      socket.emit(e.direction.toLowerCase(), calcMotorPover(255));
     } else {
       console.log(`Stop mooving`);
       socket.emit(`stop`, 0);
     }
   };
 
-  const onTurn = e => {
-    if (e.type === `move` && (e.direction === `LEFT` || e.direction === `RIGHT`)) {
-      console.log(e.direction.toLowerCase(), calcMotorPover(e.x));
-      socket.emit(e.direction.toLowerCase(), Math.abs(e.x));
-    } else {
-      console.log(`Stop turning`);
-      socket.emit(`turn-stop`, 0);
+  const direction = {
+    38: `forward`,
+    40: `backward`,
+    37: `left`,
+    39: `right`,
+  }
+
+  const power = 255;
+
+  const stop = () => {
+    socket.emit(`stop`, 0);
+  }
+
+  const moveHandler = (e) => {
+    console.log(e);
+    stop();
+    socket.emit(direction[e.keyCode], power);
+  }
+
+  const stopHandler = (e) => {
+    console.log(e)
+    stop()
+  }
+
+  useEffect(()=>{
+    document.addEventListener(`keydown`, moveHandler);
+    document.addEventListener(`keyup`, stopHandler);
+
+    () => {
+      document.removeEventListener(`keydown`, moveHandler);
+      document.removeEventListener(`keyup`, stopHandler);
     }
-  };
+  }, []);
 
   return (
     <LayoutBase>
       <div className={s.content}>
         <Joystick size={100} baseColor="lightgray" stickColor="purple" move={onMove} stop={onMove}></Joystick>
-        <Joystick size={100} baseColor="lightgray" stickColor="purple" move={onTurn} stop={onTurn}></Joystick>
       </div>
     </LayoutBase>
   );
