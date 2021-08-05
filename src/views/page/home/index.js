@@ -7,7 +7,7 @@ import LayoutBase from 'partial/layout/base';
 import s from 'styles/Home.module.css';
 
 export default function Home() {
-  const socket = io(`ws://localhost:3080`, {
+  const socket = io(`ws://192.168.0.111:3080`, {
     transport: [`websocket`],
     extraHeaders: {
       'Access-Control-Allow-Origin': `*`
